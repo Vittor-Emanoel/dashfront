@@ -1,6 +1,6 @@
+import { Toaster } from '@components/ui/sonner';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { Toaster } from 'react-hot-toast';
 import { AuthProvider } from './app/contexts/AuthContext';
 import { ThemeProvider } from './app/contexts/ThemeProvider';
 import { Router } from './router';
@@ -20,8 +20,8 @@ export function App() {
       <AuthProvider>
         <ThemeProvider>
           <Router />
-          <Toaster />
         </ThemeProvider>
+        <Toaster richColors={true} position="top-center" />
       </AuthProvider>
       <ReactQueryDevtools position="bottom-right" />
     </QueryClientProvider>

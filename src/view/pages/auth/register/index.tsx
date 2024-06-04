@@ -1,48 +1,65 @@
+import { EyeIcon } from '@components/icons/EyeIcon';
 import { GoogleIcon } from '@components/icons/Google';
-import { cn } from '@components/lib/lib';
 import { Button } from '@components/ui/button';
 import { Input } from '@components/ui/input';
 import { Label } from '@radix-ui/react-dropdown-menu';
-import { CrossCircledIcon } from '@radix-ui/react-icons';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import bg from '../../../../assets/bg.jpg';
-import { Logo } from '../../../../assets/images/logo';
-import { EyeIcon } from '../../../components/icons/EyeIcon';
-import { useLoginController } from './useLoginController';
+import { useRegisterController } from './useRegisterController';
 
-export function Login() {
-  const {
-    handleSubmit,
-    errors,
-    isLoading,
-    register,
-    showPassword,
-    setShowPassword,
-  } = useLoginController();
+import { cn } from '@components/lib/lib';
+import { CrossCircledIcon } from '@radix-ui/react-icons';
+import { Logo } from '../../../../assets/images/logo';
+
+import bg from '../../../../assets/bg.jpg';
+
+export function Register() {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const { register, errors, handleSubmit, isLoading } = useRegisterController();
 
   return (
-    <div className="w-full h-screen flex lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[600px]">
+    <div className="w-full h-screen lg:grid flex lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[600px]">
       <div className="w-full flex items-center justify-center p-6">
-        <div className="mx-auto grid w-[350px] gap-6 ">
+        <div className="mx-auto grid w-[350px] gap-6">
           <header className="items-center">
             <Logo />
-            <h1 className="text-2xl font-semibold leading-none tracking-tight mt-4 light:text-zinc-800 text-zinc-800">
-              Entrar
+            <h1 className="text-2xl font-semibold leading-none tracking-tight mt-4">
+              Criar conta grátis
             </h1>
             <p className="text-sm text-muted-foreground mt-2">
-              Entre com a sua conta.
+              Crie sua conta e comece a usar os recursos.
             </p>
           </header>
           <form onSubmit={handleSubmit} className="grid gap-3">
             <div className="grid gap-1">
-              <Label className="text-sm light:text-zinc-700 ">E-mail</Label>
+              <Label className="text-sm light:text-zinc-700">Nome</Label>
+              <Input
+                id="name"
+                type="text"
+                placeholder="Seu nome completo"
+                className={cn(
+                  'placeholder:text-sm',
+                  errors.name && 'border-red-500 placeholder:text-red-500',
+                )}
+                {...register('name')}
+              />
+              {errors.name && (
+                <span className="text-xs text-red-500 flex gap-2">
+                  <CrossCircledIcon />
+                  {errors.name.message}
+                </span>
+              )}
+            </div>
+            <div className="grid gap-1">
+              <Label className="text-sm light:text-zinc-700">E-mail</Label>
               <Input
                 id="email"
                 type="email"
                 placeholder="Seu email"
                 className={cn(
                   'placeholder:text-sm',
-                  errors.email && 'border-red-500 placeholder:text-red-500',
+                  errors.name && 'border-red-500 placeholder:text-red-500',
                 )}
                 {...register('email')}
               />
@@ -63,16 +80,15 @@ export function Login() {
                   id="password"
                   type={showPassword ? 'text' : 'password'}
                   className={cn(
-                    'pr-10 placeholder:text-sm',
-                    errors.password &&
-                      'border-red-500 placeholder:text-red-500',
+                    'placeholder:text-sm pr-10',
+                    errors.name && 'border-red-500 placeholder:text-red-500',
                   )}
                   placeholder="Sua senha"
                   {...register('password')}
                 />
                 <button
                   type="button"
-                  className="absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center  text-gray-500 dark:text-gray-400"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center text-gray-500 dark:text-gray-400"
                   onClick={() => setShowPassword((state) => !state)}
                 >
                   <EyeIcon size={18} open={showPassword} />
@@ -103,17 +119,17 @@ export function Login() {
             </Button>
           </form>
           <div className="flex gap-1 items-center justify-center text-sm text-muted-foreground">
-            <p>Não possui uma conta?</p>
+            <p>Já possui uma conta?</p>
             <Link
-              to="/register"
+              to="/login"
               className="underline hover:text-primary transition-colors"
             >
-              Cadastrar
+              Entrar
             </Link>
           </div>
         </div>
       </div>
-      <div className="hidden bg-muted lg:block h-full border">
+      <div className="hidden bg-muted lg:block">
         <img src={bg} alt="" className="h-full bg-cover" />
       </div>
     </div>

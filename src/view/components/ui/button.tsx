@@ -1,3 +1,4 @@
+import { useTheme } from '@app/contexts/ThemeProvider';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
@@ -55,6 +56,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ref,
   ) => {
     const Comp = asChild ? Slot : 'button';
+    const { theme } = useTheme();
+
     return (
       <>
         <Comp
@@ -66,7 +69,13 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           ref={ref}
           {...props}
         >
-          {isLoading ? <Spinner className="w-5" /> : children}
+          {isLoading ? (
+            <Spinner
+              className={cn('w-5', theme === 'light' && 'fill-zinc-800')}
+            />
+          ) : (
+            children
+          )}
         </Comp>
       </>
     );

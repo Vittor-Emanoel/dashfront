@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 
-import { NAV_ITENS } from "../../utils/NAV_ITENS";
+import { NAV_ITENS } from '../../utils/NAV_ITENS';
 import { cn } from '../lib/lib';
 
 import logo from '../../../assets/images/adm.svg';

@@ -24,7 +24,7 @@ const InputMask = forwardRef(
     ref: ForwardedRef<HTMLInputElement>,
   ) => {
     return (
-      <div className="">
+      <div className="w-full">
         <Inpt
           mask={mask}
           placeholder={placeholder}

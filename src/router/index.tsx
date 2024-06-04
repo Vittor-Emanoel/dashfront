@@ -5,7 +5,9 @@ import { Dashboard } from '../view/pages/dashboard';
 import { Secretary } from '@pages/secretary/Home';
 
 import { ForgotPassword } from '../view/pages/auth/forgot-password';
+
 import { Login } from '../view/pages/auth/login';
+import { Register } from '../view/pages/auth/register';
 import { Members } from '../view/pages/secretary/Members';
 import { EditMember } from '../view/pages/secretary/Members/pages/editMember';
 import { NewMember } from '../view/pages/secretary/Members/pages/newMember';
@@ -17,7 +19,8 @@ export function Router() {
     <BrowserRouter>
       <Routes>
         <Route element={<AuthGuard isPrivate={false} />}>
-          <Route path="/" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
         </Route>
       </Routes>
@@ -25,7 +28,7 @@ export function Router() {
       <Routes>
         <Route element={<AuthGuard isPrivate={true} />}>
           <Route element={<DashboardLayout />}>
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/" element={<Dashboard />} />
             <Route element={<RoleGuard isPrivate={true} />}>
               <Route path="/secretary" element={<Secretary />} />
               <Route path="/members" element={<Members />} />
